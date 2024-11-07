@@ -1,0 +1,39 @@
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+    gateway:
+      routes:
+        - id: order-service
+          uri: lb://order-service
+          predicates:
+            - Path=/order-service/**
+        - id: product-service
+          uri: lb://product-service
+          predicates:
+            - Path=/product-service/**
+        - id: user-service
+          uri: lb://user-service
+          predicates:
+            - Path=/user-service/**
+server:
+  port: 8080
+  servlet:
+    context-path: /gateway-service
+hm:
+  jwt:
+    location: classpath:hmall.jks
+    alias: hmall
+    password: hmall123
+    tokenTTL: 30m
+  auth:
+    excludePaths: #不需要登录就能访问的路径
+      - /hi
+      - /hello
+      - /user-service/user/login
+
+
+

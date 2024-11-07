@@ -1,0 +1,5 @@
+E:\idea-project\springcloud1106\product\src\main\java\com\niuniu\product\ProductApplication.java
+E:\idea-project\springcloud1106\product\src\main\java\com\niuniu\product\controller\ProductController.java
+E:\idea-project\springcloud1106\product\src\main\java\com\niuniu\product\config\DefaultFeignConfig.java
+E:\idea-project\springcloud1106\product\src\main\java\com\niuniu\product\feignclient\OrderClient.java
+E:\idea-project\springcloud1106\product\src\main\java\com\niuniu\product\model\Order.java

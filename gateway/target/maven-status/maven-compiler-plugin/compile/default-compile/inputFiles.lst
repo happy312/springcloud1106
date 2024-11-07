@@ -1,0 +1,6 @@
+E:\idea-project\springcloud1106\gateway\src\main\java\com\niuniu\gateway\GatewayApplication.java
+E:\idea-project\springcloud1106\gateway\src\main\java\com\niuniu\gateway\config\AuthProperties.java
+E:\idea-project\springcloud1106\gateway\src\main\java\com\niuniu\gateway\filter\MyGlobalFilter.java
+E:\idea-project\springcloud1106\gateway\src\main\java\com\niuniu\gateway\util\JWTUtil.java
+E:\idea-project\springcloud1106\gateway\src\main\java\com\niuniu\gateway\config\JwtProperties.java
+E:\idea-project\springcloud1106\gateway\src\main\java\com\niuniu\gateway\filter\AuthGlobalFilter.java
