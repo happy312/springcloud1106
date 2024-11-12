@@ -1,5 +1,6 @@
 package com.niuniu.gateway.filter;
 
+import com.niuniu.common.CommonConstant;
 import com.niuniu.gateway.config.AuthProperties;
 import com.niuniu.gateway.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,6 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
-
-    private static final String userInfo = "user-info";
 
     private final AuthProperties authProperties;
 
@@ -51,7 +50,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
         // 5、传递用户信息
         ServerWebExchange swe = exchange.mutate()
-                .request(builder -> builder.header(userInfo, userId.toString()))
+                .request(builder -> builder.header(CommonConstant.userInfo, userId.toString()))
                 .build();
         System.out.println("userId = " + userId);
 

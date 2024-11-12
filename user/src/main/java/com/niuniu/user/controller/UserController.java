@@ -1,12 +1,17 @@
 package com.niuniu.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.google.common.collect.Lists;
+import com.niuniu.common.CommonConstant;
 import com.niuniu.common.utils.UserContext;
+import com.niuniu.user.feignclient.OrderClient;
 import com.niuniu.user.mapper.UserMapper;
+import com.niuniu.user.model.Order;
 import com.niuniu.user.model.User;
 import com.niuniu.user.util.JWTUtil;
 import com.niuniu.user.vo.Response;
 import jodd.util.StringUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,13 +26,16 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/user")
 public class UserController {
-    private static final String userInfo = "user-info";
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private OrderClient orderClient;
 
     @Resource
     private RedisTemplate<String, String> redisTemplate;
@@ -103,7 +111,7 @@ public class UserController {
     public Response getCurrentUser(HttpServletRequest request) {
         System.out.println("是否从UserContext获取到了用户信息 = " + UserContext.getUser());
 
-        String userInfoo = request.getHeader(userInfo);
+        String userInfoo = request.getHeader(CommonConstant.userInfo);
         if (StringUtil.isEmpty(userInfoo)) {
             return Response.fail("getCurrentUser error!");
         }
@@ -120,6 +128,17 @@ public class UserController {
     public Response logout(@RequestParam(name = "token") String token) {
         redisTemplate.delete("token_" + token);
         return Response.ok();
+    }
+
+    /**
+     * 查询用户的订单列表
+     * @param
+     * @return
+     */
+    @GetMapping("/getOrderList")
+    public Response getOrderList() {
+        List<Order> orders = orderClient.queryOrderByIds(Lists.newArrayList(UserContext.getUser()));
+        return Response.ok(orders);
     }
 
 }

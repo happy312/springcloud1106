@@ -2,6 +2,7 @@ package com.niuniu.order.controller;
 
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
+import com.niuniu.common.utils.UserContext;
 import com.niuniu.order.mapper.OrderMapper;
 import com.niuniu.order.model.Order;
 import lombok.extern.slf4j.Slf4j;
@@ -59,7 +60,7 @@ public class OrderController {
 
     @GetMapping("/queryOrderByIds")
     public List<Order> queryOrderByIds(@RequestParam(name = "ids") List<Long> ids){
-
+        log.info(UserContext.getUser().toString());
         return Lists.newArrayList(orderMapper.getById(1L));
     }
 }
