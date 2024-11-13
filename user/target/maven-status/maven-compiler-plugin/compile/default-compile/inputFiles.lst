@@ -3,7 +3,9 @@ E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\config\RedisC
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\util\JWTUtil.java
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\vo\Response.java
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\service\UserService.java
+E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\model\Order.java
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\controller\UserController.java
+E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\feignclient\OrderClient.java
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\model\User.java
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\service\impl\UserServiceImpl.java
 E:\idea-project\springcloud1106\user\src\main\java\com\niuniu\user\UserApplication.java

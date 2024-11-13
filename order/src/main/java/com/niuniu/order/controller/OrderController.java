@@ -58,9 +58,24 @@ public class OrderController {
         return msg;
     }
 
+    /**
+     * 根据用户查询订单
+     * @param userId
+     * @return
+     */
+    @GetMapping("/getOrdersByUserId")
+    public List<Order> getOrdersByUserId(@RequestParam(name = "userId") Long userId){
+        log.info(UserContext.getUser().toString());
+        return orderMapper.getByUserId(userId);
+    }
+
+    /**
+     * 根据订单id查询订单
+     * @param ids
+     * @return
+     */
     @GetMapping("/queryOrderByIds")
     public List<Order> queryOrderByIds(@RequestParam(name = "ids") List<Long> ids){
-        log.info(UserContext.getUser().toString());
         return Lists.newArrayList(orderMapper.getById(1L));
     }
 }

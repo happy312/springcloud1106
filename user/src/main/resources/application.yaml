@@ -1,24 +1,21 @@
 spring:
   application:
     name: user-service
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springcloud
-    username: root
-    password: 123456
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password:
-    database: 0
-  cloud:
-    nacos:
-      discovery:
-        server-addr: localhost:8848
+# redis配置迁移到了nacos
+#  redis:
+#    host: 127.0.0.1
+#    port: 6379
+#    password:
+#    database: 0
 server:
   port: 8083
   servlet:
     context-path: /user-service
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+# mybatis的配置迁移到了nacos
+#mybatis-plus:
+#  configuration:
+#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+logging:
+  level:
+    com.niuniu.user.feignclient.OrderClient: debug
+

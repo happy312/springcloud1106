@@ -77,10 +77,10 @@ public class UserController {
         }
         // 4、用户存在，使用jwt生成token返给前端
         String token = JWTUtil.createToken(user.getId());
-        // 5、将token放入redis，设置有效期限为1分钟。
-        String key = "token_" + token;
+        // 5、将token放入redis，设置有效期限为1小时。
+        String key = CommonConstant.TOKEN_ + token;
         redisTemplate.opsForValue().set(key, JSONObject.toJSONString(user),
-                System.currentTimeMillis() + 5 * 60 * 1000L, TimeUnit.MILLISECONDS);
+                60 * 60 * 1000L, TimeUnit.MILLISECONDS);
         return Response.ok(token);
     }
 
@@ -135,9 +135,9 @@ public class UserController {
      * @param
      * @return
      */
-    @GetMapping("/getOrderList")
-    public Response getOrderList() {
-        List<Order> orders = orderClient.queryOrderByIds(Lists.newArrayList(UserContext.getUser()));
+    @GetMapping("/getOrdersByUserId")
+    public Response getOrdersByUserId() {
+        List<Order> orders = orderClient.getOrdersByUserId(UserContext.getUser());
         return Response.ok(orders);
     }
 

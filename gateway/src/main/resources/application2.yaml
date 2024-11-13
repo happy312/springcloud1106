@@ -24,6 +24,11 @@ server:
   servlet:
     context-path: /gateway-service
 hm:
+  jwt:
+    location: classpath:hmall.jks
+    alias: hmall
+    password: hmall123
+    tokenTTL: 30m
   auth:
     excludePaths: #不需要登录就能访问的路径
       - /user-service/user/login

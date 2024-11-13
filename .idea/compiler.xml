@@ -21,6 +21,7 @@
       <module name="niuniu-common" options="-parameters" />
       <module name="order" options="-parameters" />
       <module name="product" options="-parameters" />
+      <module name="springcloud1106" options="" />
       <module name="user" options="-parameters" />
     </option>
   </component>
