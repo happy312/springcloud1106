@@ -17,6 +17,11 @@ spring:
         server-addr: 127.0.0.1:8848
         file-extension: yaml #文件后缀名
         shared-dataids: shared-redis.yaml,shared-mybatis.yaml,shared-jdbc.yaml
+    sentinel:
+      transport:
+        dashboard: localhost:8070
+      http-method-specify: true #开启请求方式前缀
+
 
 
 

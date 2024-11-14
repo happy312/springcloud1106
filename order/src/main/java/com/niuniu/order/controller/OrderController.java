@@ -66,6 +66,8 @@ public class OrderController {
     @GetMapping("/getOrdersByUserId")
     public List<Order> getOrdersByUserId(@RequestParam(name = "userId") Long userId){
         log.info(UserContext.getUser().toString());
+        int i = 1;
+        System.out.println(i / 0);
         return orderMapper.getByUserId(userId);
     }
 

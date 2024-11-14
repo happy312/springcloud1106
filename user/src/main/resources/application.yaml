@@ -18,4 +18,8 @@ server:
 logging:
   level:
     com.niuniu.user.feignclient.OrderClient: debug
-
+feign:
+  okhttp:
+    enabled: true
+  sentinel:
+    enabled: true

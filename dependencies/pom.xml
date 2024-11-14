@@ -39,6 +39,16 @@
 
     <dependencyManagement>
         <dependencies>
+            <!--20211114增加该依赖。解决启动报错：java.lang.AbstractMethodError: com.alibaba.cloud.sentinel.feign.SentinelContractHolder.parseAndValidateMetadata(Ljava/lang/Class;)Ljava/util/List;
+            https://blog.csdn.net/sinat_27818621/article/details/127970893?ops_request_misc=%257B%2522request%255Fid%2522%253A%25228CECAB34-4C63-46F6-A460-CC4DF964D503%2522%252C%2522scm%2522%253A%252220140713.130102334..%2522%257D&request_id=8CECAB34-4C63-46F6-A460-CC4DF964D503&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~sobaiduend~default-2-127970893-null-null.nonecase&utm_term=java.lang.AbstractMethodError%3A%20com.alibaba.cloud.sentinel.feign.SentinelContractHolder.parseAndValidateMetadata%28Ljava%2Flang%2FClass%3B%29Ljava%2Futil%2FList%3B&spm=1018.2226.3001.4450-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-openfeign-dependencies</artifactId>
+                <version>2.2.0.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
             <!-- Spring Cloud -->
             <dependency>
                 <groupId>org.springframework.cloud</groupId>
