@@ -4,11 +4,12 @@ spring:
   profiles:
     active: dev
 # 数据库配置迁移到了nacos
-#  datasource:
+  datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
-#    url: jdbc:mysql://localhost:3306/springcloud
-#    username: root
-#    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud?serverTimezone=GMT%2B8
+    username: root
+    password: 123456
   cloud:
     nacos:
       discovery:
@@ -16,7 +17,7 @@ spring:
       config:
         server-addr: 127.0.0.1:8848
         file-extension: yaml #文件后缀名
-        shared-dataids: shared-redis.yaml,shared-mybatis.yaml,shared-jdbc.yaml
+        shared-dataids: shared-redis.yaml,shared-mybatis.yaml
     sentinel:
       transport:
         dashboard: localhost:8070

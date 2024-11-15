@@ -1,5 +1,6 @@
 package com.niuniu.user.feignclient.fallback;
 
+import com.niuniu.common.vo.Response;
 import com.niuniu.user.feignclient.OrderClient;
 import com.niuniu.user.model.Order;
 import feign.hystrix.FallbackFactory;
@@ -17,6 +18,11 @@ public class OrderClientFallBackFactory implements FallbackFactory<OrderClient> 
             @Override
             public List<Order> getOrdersByUserId(Long userId) {
                 return Collections.emptyList();
+            }
+
+            @Override
+            public Response createOrder(Long userId) {
+                return null;
             }
         };
     }

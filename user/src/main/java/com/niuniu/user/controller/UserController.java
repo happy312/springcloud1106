@@ -8,6 +8,7 @@ import com.niuniu.user.feignclient.OrderClient;
 import com.niuniu.user.mapper.UserMapper;
 import com.niuniu.user.model.Order;
 import com.niuniu.user.model.User;
+import com.niuniu.user.service.UserService;
 import com.niuniu.user.util.JWTUtil;
 import com.niuniu.user.vo.Response;
 import jodd.util.StringUtil;
@@ -33,6 +34,9 @@ public class UserController {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private UserService userService;
 
     @Autowired
     private OrderClient orderClient;
@@ -139,6 +143,12 @@ public class UserController {
     public Response getOrdersByUserId() {
         List<Order> orders = orderClient.getOrdersByUserId(UserContext.getUser());
         return Response.ok(orders);
+    }
+
+    @GetMapping("/testSeataXA")
+    public Response testSeataXA() {
+        userService.testSeataXA();
+        return Response.ok();
     }
 
 }

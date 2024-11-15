@@ -3,8 +3,10 @@ package com.niuniu.order.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.google.common.collect.Lists;
 import com.niuniu.common.utils.UserContext;
+import com.niuniu.common.vo.Response;
 import com.niuniu.order.mapper.OrderMapper;
 import com.niuniu.order.model.Order;
+import com.niuniu.order.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -12,10 +14,7 @@ import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
@@ -34,6 +33,9 @@ public class OrderController {
 
     @Autowired
     private OrderMapper orderMapper;
+
+    @Autowired
+    private OrderService orderService;
 
     /**
      * 手写负载均衡
@@ -79,5 +81,11 @@ public class OrderController {
     @GetMapping("/queryOrderByIds")
     public List<Order> queryOrderByIds(@RequestParam(name = "ids") List<Long> ids){
         return Lists.newArrayList(orderMapper.getById(1L));
+    }
+
+    @PostMapping("/createOrder")
+    public Response createOrder(@RequestParam(name = "userId") Long userId){
+        orderService.createOrder(userId);
+        return Response.ok();
     }
 }

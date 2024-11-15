@@ -1,10 +1,7 @@
 package com.niuniu.user.mapper;
 
 import com.niuniu.user.model.User;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
 
 @Mapper
 public interface UserMapper {
@@ -15,4 +12,6 @@ public interface UserMapper {
     @Select("select * from t_user where name = #{name} and password = #{password}")
     User login(@Param("name") String name, @Param("password") String password);
 
+    @Insert("insert into t_user(id, name, password) values(#{user.id}, #{user.name}, #{user.password}) ")
+    Integer insertUser(@Param("user") User user);
 }

@@ -13,11 +13,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Component
-@FeignClient(value = "order-service", configuration = DefaultFeignConfig.class, fallbackFactory = OrderClientFallBackFactory.class)
-public interface OrderClient {
-    @GetMapping(value = "/order-service/order/getOrdersByUserId")
-    List<Order> getOrdersByUserId(@RequestParam("userId") Long userId);
+@FeignClient(value = "product-service", configuration = DefaultFeignConfig.class)
+public interface ProductClient {
 
-    @PostMapping(value = "/order-service/order/createOrder")
-    Response createOrder(@RequestParam("userId") Long userId);
+    @PostMapping(value = "/product-service/product/createProduct")
+    Response createProduct(@RequestParam("id") Long id);
 }

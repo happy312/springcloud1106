@@ -1,4 +1,4 @@
-package com.niuniu.order.model;
+package com.niuniu.product.model;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -11,14 +11,14 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class Product {
     @TableId
-    @TableField(value = "order_id")
-    private Long orderId;
+    @TableField(value = "product_id")
+    private Long productId;
+
+    @TableField(value = "product_name")
+    private String productName;
+
+    @TableField(value = "price")
     private Double price;
-    @TableField(value = "create_time")
-    private Date createTime;
-    private String address;
-    @TableField(value = "user_id")
-    private Long userId;
 }

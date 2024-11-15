@@ -23,3 +23,20 @@ feign:
     enabled: true
   sentinel:
     enabled: true
+#seata客户端配置
+seata:
+  registry:
+    type: nacos
+    nacos:
+      server-addr: 127.0.0.1:8848
+      namespace: public
+      group: DEFAULT_GROUP
+      application: seata-server
+      username: nacos
+      password: nacos
+  tx-service-group: user-service-fescar-service-group
+  service:
+    vgroup-mapping:
+      user-service-fescar-service-group: default
+  data-source-proxy-mode: XA
+
