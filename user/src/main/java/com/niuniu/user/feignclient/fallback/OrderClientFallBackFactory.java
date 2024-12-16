@@ -21,7 +21,7 @@ public class OrderClientFallBackFactory implements FallbackFactory<OrderClient> 
             }
 
             @Override
-            public Response createOrder() {
+            public Response createOrder(Long productId, Integer num) {
                 return null;
             }
         };

@@ -146,8 +146,8 @@ public class UserController {
     }
 
     @GetMapping("/testSeataXA")
-    public Response testSeataXA() {
-        userService.testSeataXA();
+    public Response testSeataXA(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num) {
+        userService.testSeataXA(productId, num);
         return Response.ok();
     }
 

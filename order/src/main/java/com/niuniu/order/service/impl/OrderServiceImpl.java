@@ -36,7 +36,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         return "你好，这里是order-service";
     }
 
-    @GlobalTransactional
+//    @GlobalTransactional
+    @Transactional
     @Override
     public Order createOrder(Long productId, Integer num) {
         // 1、创建订单

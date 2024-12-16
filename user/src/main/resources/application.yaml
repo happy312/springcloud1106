@@ -39,7 +39,4 @@ seata:
     vgroup-mapping:
       user-service-fescar-service-group: default
   data-source-proxy-mode: AT
-  client:
-    tm:
-      default-global-transaction-timeout: 60000
 
