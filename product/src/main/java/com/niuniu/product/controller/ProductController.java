@@ -35,4 +35,15 @@ public class ProductController {
         productService.createProduct(id);
         return Response.ok();
     }
+
+    @RequestMapping("/updateStockById")
+    public Response updateStockById(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num){
+        productService.updateStockById(productId, num);
+        return Response.ok();
+    }
+
+    @RequestMapping("/getProductById")
+    public Response getProductById(@RequestParam(name = "productId") Long productId){
+        return Response.ok(productService.getById(productId));
+    }
 }

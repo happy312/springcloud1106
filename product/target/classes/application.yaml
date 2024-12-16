@@ -4,7 +4,7 @@ spring:
   datasource:
 #    driver-class-name: com.mysql.cj.jdbc.Driver
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springcloud?serverTimezone=GMT%2B8
+    url: jdbc:mysql://localhost:3306/springcloud_product?serverTimezone=GMT%2B8&useSSL=false
     username: root
     password: 123456
   redis:
@@ -47,4 +47,4 @@ seata:
   service:
     vgroup-mapping:
       product-service-fescar-service-group: default
-  data-source-proxy-mode: XA
+  data-source-proxy-mode: AT

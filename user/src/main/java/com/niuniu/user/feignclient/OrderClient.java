@@ -19,5 +19,5 @@ public interface OrderClient {
     List<Order> getOrdersByUserId(@RequestParam("userId") Long userId);
 
     @PostMapping(value = "/order-service/order/createOrder")
-    Response createOrder(@RequestParam("userId") Long userId);
+    Response createOrder();
 }

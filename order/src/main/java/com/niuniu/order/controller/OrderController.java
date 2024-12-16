@@ -84,8 +84,8 @@ public class OrderController {
     }
 
     @PostMapping("/createOrder")
-    public Response createOrder(@RequestParam(name = "userId") Long userId){
-        orderService.createOrder(userId);
+    public Response createOrder(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num){
+        orderService.createOrder(productId, num);
         return Response.ok();
     }
 }
