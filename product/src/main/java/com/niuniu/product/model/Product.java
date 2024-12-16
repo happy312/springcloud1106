@@ -27,4 +27,7 @@ public class Product {
 
     @TableField(value = "stock")
     private Integer stock;
+
+    @TableField(value = "update_time")
+    private Date updateTime;
 }

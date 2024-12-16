@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Date;
 
 @Slf4j
 @Service
@@ -18,7 +19,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     @Transactional
     @Override
     public Integer createProduct(Long id) {
-        return this.baseMapper.insert(new Product(id, "111", new BigDecimal("100"), 10000));
+        return this.baseMapper.insert(new Product(id, "111", new BigDecimal("100"), 10000, new Date()));
     }
 
     @Override

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
 @Component
-@FeignClient(value = "order-service", configuration = DefaultFeignConfig.class, fallbackFactory = OrderClientFallBackFactory.class)
+@FeignClient(value = "order-service", configuration = DefaultFeignConfig.class)
 public interface OrderClient {
     @GetMapping(value = "/order-service/order/getOrdersByUserId")
     List<Order> getOrdersByUserId(@RequestParam("userId") Long userId);
