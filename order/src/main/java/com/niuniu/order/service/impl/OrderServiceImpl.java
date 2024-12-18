@@ -72,7 +72,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         log.debug("执行结束！");
 
         int i = 0;
-        System.out.println(100/i);
+//        System.out.println(100/i);
         return order;
     }
 }
