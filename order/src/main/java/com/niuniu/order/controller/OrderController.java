@@ -7,6 +7,7 @@ import com.niuniu.common.vo.Response;
 import com.niuniu.order.mapper.OrderMapper;
 import com.niuniu.order.model.Order;
 import com.niuniu.order.service.OrderService;
+import com.niuniu.order.service.pay.MyServiceFactory2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
@@ -36,6 +37,10 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+
+//    @Autowired
+//    private MyServiceFactory myServiceFactory;
+
 
     /**
      * 手写负载均衡
@@ -87,5 +92,17 @@ public class OrderController {
     public Response createOrder(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num){
         orderService.createOrder(productId, num);
         return Response.ok();
+    }
+
+//    @Autowired
+//    private MyServiceFactory myServiceFactory;
+    @Autowired
+    private MyServiceFactory2 myServiceFactory2;
+
+    @PostMapping("/pay")
+    public Response pay(){
+        String s = myServiceFactory2.getPayService("zfbPayServiceImpl").pay();
+//        String s = myServiceFactory2.getPayService("weiXinPayServiceImpl").pay();
+        return Response.ok(s);
     }
 }
