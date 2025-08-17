@@ -16,6 +16,10 @@ spring:
           uri: lb://user-service
           predicates:
             - Path=/user-service/**
+        - id: store-service
+          uri: lb://store-service
+          predicates:
+            - Path=/store-service/**
 server:
   port: 8080
   servlet:

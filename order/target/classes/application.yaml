@@ -16,6 +16,9 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8070
 server:
   port: 8084
   servlet:
@@ -26,6 +29,11 @@ logging:
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+feign:
+  okhttp:
+    enabled: true
+  sentinel:
+    enabled: true
 #seata客户端配置
 seata:
   registry:

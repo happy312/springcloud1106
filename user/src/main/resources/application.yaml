@@ -1,6 +1,10 @@
 spring:
   application:
     name: user-service
+  cloud:
+    sentinel:
+      transport:
+        dashboard: localhost:8070
 # redis配置迁移到了nacos
 #  redis:
 #    host: 127.0.0.1

@@ -1,24 +1,14 @@
 spring:
   application:
-    name: user-service
+    name: store-service
   cloud:
     sentinel:
       transport:
         dashboard: localhost:8070
-# redis配置迁移到了nacos
-#  redis:
-#    host: 127.0.0.1
-#    port: 6379
-#    password:
-#    database: 0
 server:
-  port: 8083
+  port: 8086
   servlet:
-    context-path: /user-service
-# mybatis的配置迁移到了nacos
-#mybatis-plus:
-#  configuration:
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl #开启sql日志
+    context-path: /store-service
 logging:
   level:
     com.niuniu.user.feignclient.OrderClient: debug
@@ -38,9 +28,9 @@ seata:
       application: seata-server
       username: nacos
       password: nacos
-  tx-service-group: user-service-fescar-service-group
+  tx-service-group: store-service-fescar-service-group
   service:
     vgroup-mapping:
-      user-service-fescar-service-group: default
+      store-service-fescar-service-group: default
   data-source-proxy-mode: AT
 

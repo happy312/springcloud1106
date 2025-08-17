@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="niuniu-common" />
         <module name="product" />
+        <module name="store" />
         <module name="user" />
         <module name="gateway" />
         <module name="order" />
@@ -21,7 +22,8 @@
       <module name="niuniu-common" options="-parameters" />
       <module name="order" options="-parameters" />
       <module name="product" options="-parameters" />
-      <module name="springcloud1106" options="-parameters" />
+      <module name="springcloud1106" options="" />
+      <module name="store" options="-parameters" />
       <module name="user" options="-parameters" />
     </option>
   </component>

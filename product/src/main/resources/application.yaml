@@ -16,16 +16,21 @@ spring:
     nacos:
       discovery:
         server-addr: localhost:8848
+    sentinel:
+      transport:
+        dashboard: localhost:8070
 server:
   port: 8085
   servlet:
     context-path: /product-service
 #openfeign连接池
-#feign:
-#  okhttp:
-#    enabled: true
-#  httpclient:
-#    enabled: false
+feign:
+  okhttp:
+    enabled: true
+  httpclient:
+    enabled: false
+  sentinel:
+    enabled: true
 logging:
   root:
     level: debug
