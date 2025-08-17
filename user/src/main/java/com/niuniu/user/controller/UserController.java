@@ -1,12 +1,10 @@
 package com.niuniu.user.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.google.common.collect.Lists;
 import com.niuniu.common.CommonConstant;
 import com.niuniu.common.utils.UserContext;
 import com.niuniu.user.feignclient.OrderClient;
 import com.niuniu.user.mapper.UserMapper;
-import com.niuniu.user.model.Order;
 import com.niuniu.user.model.User;
 import com.niuniu.user.service.UserService;
 import com.niuniu.user.util.JWTUtil;
@@ -53,12 +51,6 @@ public class UserController {
     public String hello(){
 
         return "hello，这里是user-service";
-    }
-
-    @GetMapping("/queryOrderByIds")
-    public List<User> queryOrderByIds(@RequestParam(name = "ids") List<String> ids){
-
-        return Collections.emptyList();
     }
 
     /**
@@ -133,22 +125,4 @@ public class UserController {
         redisTemplate.delete("token_" + token);
         return Response.ok();
     }
-
-    /**
-     * 查询用户的订单列表
-     * @param
-     * @return
-     */
-    @GetMapping("/getOrdersByUserId")
-    public Response getOrdersByUserId() {
-        List<Order> orders = orderClient.getOrdersByUserId(UserContext.getUser());
-        return Response.ok(orders);
-    }
-
-    @GetMapping("/testSeataXA")
-    public Response testSeataXA(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num) {
-        userService.testSeataXA(productId, num);
-        return Response.ok();
-    }
-
 }
