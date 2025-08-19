@@ -1,5 +1,8 @@
 E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\config\DefaultFeignConfig.java
+E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\config\RedisConfig.java
 E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\config\MvcConfig.java
 E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\interceptors\UserInfoInterceptor.java
+E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\utils\RedisLockUtil.java
 E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\utils\UserContext.java
+E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\vo\Response.java
 E:\idea-project\springcloud1106\niuniu-common\src\main\java\com\niuniu\common\CommonConstant.java

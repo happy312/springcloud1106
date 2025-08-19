@@ -7,19 +7,23 @@ import com.niuniu.common.vo.Response;
 import com.niuniu.order.mapper.OrderMapper;
 import com.niuniu.order.model.Order;
 import com.niuniu.order.service.OrderService;
+import com.niuniu.order.service.impl.OrderServiceImpl;
 import com.niuniu.order.service.pay.MyServiceFactory2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import java.net.URI;
 import java.util.List;
+import java.util.concurrent.*;
 
 @RestController
 @Slf4j
@@ -40,6 +44,9 @@ public class OrderController {
 
 //    @Autowired
 //    private MyServiceFactory myServiceFactory;
+
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
 
 
     /**
@@ -91,6 +98,29 @@ public class OrderController {
     @PostMapping("/createOrder")
     public Response createOrder(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num){
         return orderService.createOrder(productId, num);
+    }
+
+    @GetMapping("/dealCoupon")
+    public Response dealCoupon(){
+        ThreadPoolExecutor executor = new ThreadPoolExecutor(100, 100, 10, TimeUnit.SECONDS, new LinkedBlockingQueue<>(1000));
+        // 100个人抢三张券，每人限购一张
+        for (int i = 0; i < 100; i++) {
+            /*executor.execute(()->{
+                orderService.dealCoupon();
+            });*/
+
+            new Thread(()->{
+                orderService.dealCoupon(1L, 1);
+            }).start();
+        }
+        return Response.ok();
+    }
+
+    @GetMapping("/addStore")
+    public Response addStore(@RequestParam(name = "productId") Long productId, @RequestParam(name = "num") Integer num){
+        // 删除缓存
+        redisTemplate.delete("STOCK_" + productId);
+        return Response.ok();
     }
 
 //    @Autowired

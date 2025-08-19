@@ -1,5 +1,6 @@
 package com.niuniu.order.config;
 
+import com.niuniu.common.utils.RedisLockUtil;
 import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
@@ -79,5 +80,10 @@ public class RedisConfig {
 
         // 返回带有连接池配置的 Redis 连接工厂
         return new LettuceConnectionFactory(redisStandaloneConfiguration, lettucePoolingClientConfiguration);
+    }
+
+    @Bean
+    public RedisLockUtil redisLockUtil(){
+        return new RedisLockUtil();
     }
 }

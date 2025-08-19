@@ -17,6 +17,12 @@ public class ProductStoreClientFallBackFactory implements FallbackFactory<Produc
                 log.error("更新商品库存失败，服务降级。productId = " + productId);
                 return null;
             }
+
+            @Override
+            public Response getStockById(Long productId) {
+                log.error("查询商品库存失败，服务降级。productId = " + productId);
+                return null;
+            }
         };
     }
 }

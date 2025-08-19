@@ -1,6 +1,7 @@
 package com.niuniu.order.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.niuniu.common.utils.RedisLockUtil;
 import com.niuniu.common.utils.UserContext;
 import com.niuniu.common.vo.Response;
 import com.niuniu.order.feignclient.ProductClient;
@@ -13,11 +14,14 @@ import com.niuniu.order.service.OrderService;
 import com.niuniu.order.vo.Product;
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
+import org.redisson.api.RLock;
+import org.redisson.api.RReadWriteLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Objects;
@@ -32,8 +36,18 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 
     @Autowired
     private ProductClient productClient;
+
     @Autowired
     private ProductStoreClient productStoreClient;
+
+    @Autowired
+    private RedisLockUtil redisLockUtil;
+
+    @Resource
+    private RedisTemplate<String, String> redisTemplate;
+
+    @Resource
+    private RedissonClient redissonClient;
 
     @Override
     public String hello() {
@@ -63,6 +77,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         String orderId = UUID.randomUUID().toString();
         Order order = Order.builder()
                 .orderId(orderId)
+                .status(1) // 1：未支付
                 .createTime(new Date())
                 .price(product.getPrice())
                 .userId(userId)
@@ -90,5 +105,72 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
 //        System.out.println(3/i);
 
         return Response.ok();
+    }
+
+    /**
+     * 抢券逻辑
+     * @return
+     */
+    @Override
+    public Response dealCoupon(Long productId, Integer num) {
+        // 1、查询库存
+        Integer stock = this.getStockById(productId);
+        System.out.println(Thread.currentThread().getName()+"读到的剩余量是"+stock);
+        if (stock > 0){
+            // 减少库存
+            this.updateStock(productId, num);
+        } else {
+            System.out.println(Thread.currentThread().getName() + "，券被抢光了");
+        }
+        return Response.ok();
+    }
+
+    /**
+     * 根据商品id查询库存
+     * @param productId
+     * @return
+     */
+    private Integer getStockById(Long productId){
+        RReadWriteLock rReadWriteLock = redissonClient.getReadWriteLock("READ_WRITE_STOCK_" + productId);
+        RLock rLock = rReadWriteLock.readLock();
+        Integer stock = 0;
+        try{
+            rLock.lock();
+            String stockObj = redisTemplate.opsForValue().get("STOCK_" + productId);
+            // 从缓存中取
+            if (Objects.nonNull(stockObj)) {
+                stock = Integer.parseInt(stockObj);
+            } else { // 从数据库查询并放入缓存
+                Response<Integer> response = productStoreClient.getStockById(productId);
+                if (Objects.isNull(response)){
+                    throw new RuntimeException("查询商品库存失败！");
+                }
+                stock = response.getBody();
+                redisTemplate.opsForValue().set("STOCK_" + productId, String.valueOf(stock));
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        } finally {
+            rLock.unlock();
+        }
+        return stock;
+    }
+
+    private void updateStock(Long productId, Integer num){
+        RReadWriteLock rReadWriteLock = redissonClient.getReadWriteLock("READ_WRITE_STOCK_" + productId);
+        RLock wLock = rReadWriteLock.writeLock();
+        try {
+            wLock.lock();
+            Integer stock = this.getStockById(productId);
+            if (stock > 0) {
+                // 更新DB
+                productStoreClient.updateStockById(productId, num);
+                // 删除缓存
+                redisTemplate.delete("STOCK_" + productId);
+                System.out.println(Thread.currentThread().getName() + "，抢到券了");
+            }
+        } finally {
+            wLock.unlock();
+        }
     }
 }

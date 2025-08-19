@@ -15,4 +15,7 @@ public interface ProductStoreClient {
 
     @GetMapping(value = "/store-service/productStore/updateStockById")
     Response updateStockById(@RequestParam("productId") Long productId, @RequestParam("num") Integer num);
+
+    @GetMapping(value = "/store-service/productStore/getStockById")
+    Response getStockById(@RequestParam("productId") Long productId);
 }

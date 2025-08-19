@@ -8,4 +8,10 @@ public interface OrderService extends IService<Order> {
     String hello();
 
     Response createOrder(Long productId, Integer num);
+
+    /**
+     * 100个人抢三张券，每人限购一张
+     * @return
+     */
+    Response dealCoupon(Long productId, Integer num);
 }

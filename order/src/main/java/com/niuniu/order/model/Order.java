@@ -22,6 +22,12 @@ public class Order {
     @TableField(value = "order_id")
     private String orderId;
 
+    /**
+     * 1：未支付 2：支付中 3：已支付
+     */
+    @TableField(value = "status")
+    private Integer status;
+
     private BigDecimal price;
 
     @TableField(value = "create_time")

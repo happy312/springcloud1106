@@ -1,5 +1,6 @@
 package com.niuniu.store.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.niuniu.store.mapper.ProductStoreMapper;
 import com.niuniu.store.model.ProductStore;
@@ -28,5 +29,10 @@ public class ProductStoreServiceImpl extends ServiceImpl<ProductStoreMapper, Pro
                 .eq(ProductStore::getProductId, productId)
                 .eq(ProductStore::getStock, productStore.getStock()) // 乐观锁
                 .update();
+    }
+
+    @Override
+    public Integer getStockById(Long productId) {
+        return productStoreMapper.selectById(productId).getStock();
     }
 }

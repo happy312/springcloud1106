@@ -6,4 +6,6 @@ import com.niuniu.store.model.ProductStore;
 public interface ProductStoreService extends IService<ProductStore> {
 
     Boolean updateStockById(Long productId, Integer num);
+
+    Integer getStockById(Long productId);
 }

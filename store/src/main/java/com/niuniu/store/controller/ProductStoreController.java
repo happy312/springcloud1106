@@ -20,4 +20,9 @@ public class ProductStoreController {
         productStoreService.updateStockById(productId, num);
         return Response.ok();
     }
+
+    @RequestMapping("/getStockById")
+    public Response getStockById(@RequestParam(name = "productId") Long productId){
+        return Response.ok(productStoreService.getStockById(productId));
+    }
 }
